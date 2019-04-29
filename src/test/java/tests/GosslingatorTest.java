@@ -1,135 +1,130 @@
 package tests;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class GosslingatorTest {
+    WebDriver driver;
 
+    String actualNumberOfRyans;
+    String actualRyanDescription;
 
-    @Test
-    public void itShouldAddOneRyan() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
+    @Before //anotacia, ze tuto cast chcem otvorit vzdy pred testom
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "chromedriver74");
         //0. spustit prehliadac
-        WebDriver driver = new ChromeDriver(); //chcem vytvorit novy objekt vo webdriveri, ktory sme si nazvali driver, ktory bude nova instancia ChromeDiver
+        driver = new ChromeDriver();
         //1. otvorit stranku
         driver.get("http://localhost:8888/gosslingator.php");
-        //2. kliknut na button pridat
-        driver.findElement(By.id("addRyan")).click();
-        //odobrat ryana
-        //driver.findElement(By.id("removeRyan")).click();
-        // 3. overit pocitanie ryanov
-        Assert.assertEquals("1", driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
-
-        //skratka sout - vypise do spodnej konzoli aktualny stav pocitadla
-        //lokator je cele od By. ....
-        System.out.println("Number of ryans: " + driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
-
-        Assert.assertEquals("ryan", driver.findElement(By.cssSelector("div.ryan-counter h3")).getText());
-
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-
-        Assert.assertEquals("3", driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
-        Assert.assertEquals("ryans", driver.findElement(By.cssSelector("div.ryan-counter h3")).getText());
-
-
-        //zatvorit prehliadac
-        driver.close();
-        //ukoncit session
-        driver.quit();
 
 
     }
 
+    @After
+    public void tearDown() {
+        //zatvorit prehliadac
+        driver.close();
+        //ukoncit session
+        driver.quit();
+    }
+
+
+
+    @Test
+    public void itShouldAddOneRyan() {
+
+        WebElement addRyanButton = driver.findElement(By.id("addRyan"));
+        //2. kliknut na button pridat
+        addRyanButton.click();
+        //odobrat ryana
+        //driver.findElement(By.id("removeRyan")).click();
+        // 3. overit pocitanie ryanov
+        actualNumberOfRyans = driver.findElement(By.cssSelector("div.ryan-counter h2")).getText();
+        actualRyanDescription = driver.findElement(By.cssSelector("div.ryan-counter h3")).getText();
+        Assert.assertEquals("1",actualNumberOfRyans);
+        //skratka sout - vypise do spodnej konzoli aktualny stav pocitadla
+        //lokator je cele od By. ....
+        System.out.println("Number of ryans: " + actualNumberOfRyans);
+        Assert.assertEquals("ryan", actualRyanDescription);
+        addRyanButton.click();
+        addRyanButton.click();
+        Assert.assertEquals("1", actualNumberOfRyans);
+        Assert.assertEquals("ryan", actualRyanDescription);
+    }
+
     @Test
     public void itShouldDisplayTitle() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
-        //0. spustit prehliadac
-        WebDriver driver = new ChromeDriver(); //chcem vytvorit novy objekt vo webdriveri, ktory sme si nazvali driver, ktory bude nova instancia ChromeDiver
-        //1. otvorit stranku
-        driver.get("http://localhost:8888/gosslingator.php");
-
 
         System.out.println(driver.findElement(By.cssSelector(".ryan-title")).getText());
         Assert.assertEquals("GOSLINGATE ME", driver.findElement(By.cssSelector(".ryan-title")).getText());
 
         //COMD+D duplikuje riadok
-
-
-        //zatvorit prehliadac
-        driver.close();
-        //ukoncit session
-        driver.quit();
     }
+
 
     @Test
     public void itShouldDisplayWarningMessage() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
-        //0. spustit prehliadac
-        WebDriver driver = new ChromeDriver(); //chcem vytvorit novy objekt vo webdriveri, ktory sme si nazvali driver, ktory bude nova instancia ChromeDiver
-        //1. otvorit stranku
-        driver.get("http://localhost:8888/gosslingator.php");
 
 
         System.out.println(driver.findElement(By.cssSelector(".ryan-title")).getText());
         Assert.assertEquals("GOSLINGATE ME", driver.findElement(By.cssSelector(".ryan-title")).getText());
-
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-        driver.findElement(By.id("addRyan")).click();
-
-
-
+        WebElement addRyanButton = driver.findElement(By.id("addRyan"));
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
+        addRyanButton.click();
         Assert.assertEquals(
                 "NUMBER OF\n" +
                         "RYANS\n" +
@@ -141,9 +136,5 @@ public class GosslingatorTest {
         //COMD+D duplikuje riadok
 
 
-        //zatvorit prehliadac
-        driver.close();
-        //ukoncit session
-        driver.quit();
     }
 }
