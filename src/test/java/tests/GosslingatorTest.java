@@ -71,60 +71,29 @@ public class GosslingatorTest {
     @Test
     public void itShouldDisplayWarningMessage() {
 
-
         System.out.println(driver.findElement(By.cssSelector(".ryan-title")).getText());
         Assert.assertEquals("GOSLINGATE ME", driver.findElement(By.cssSelector(".ryan-title")).getText());
         WebElement addRyanButton = driver.findElement(By.id("addRyan"));
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
+        for (int i = 0; i < 50; i++) {
+            addRyanButton.click();
+            String actualNumberOfRyans = driver.findElement(By.id("ryanCounter")).getText();
+            //porovnavam skutocnu hodnotu zo stranky s hodnotou indexu +1
+            //index si musim premenit na string aby som ich mohol porovnat
+            Assert.assertEquals(String.valueOf(i + 1), actualNumberOfRyans);
+            //overit sklonovanie podla podmienky
+            String actualDescription = driver.findElement(By.cssSelector("div.ryan-counter h3")).getText();
+            //i=0
+            if (i + 1 == 1) {
+                Assert.assertEquals("ryan", actualDescription);
+            }
+            if (i + 1 >= 2) {
+                Assert.assertEquals("ryans", actualDescription);
+            }
+
+            System.out.println("index i = + 1");
+            System.out.println("pocet ryanov = " + actualNumberOfRyans);
+
+        }
         Assert.assertEquals(
                 "NUMBER OF\n" +
                         "RYANS\n" +
@@ -133,8 +102,26 @@ public class GosslingatorTest {
                 driver.findElement(By.cssSelector("h1.tooManyRyans")).getText()
         );
 
+
         //COMD+D duplikuje riadok
 
 
+    }
+    @Test
+    public  void  isShouldDisplayWarningMassageWhileCycle (){
+        WebElement addRyanButton = driver.findElement(By.id("addRyan"));
+        String actualNumberOfRyans = driver.findElement(By.id("ryanCounter")).getText();
+        int clickslimit = 30;
+        int clicks = 0;
+
+        //while cyklus sa vykona vzdy ak je podmienka "true"
+        while (!actualNumberOfRyans.equals("50") && clicks < clickslimit) {
+            //!= negacia hodnoty
+            addRyanButton.click();
+            //vzdy po kliknuti musim vytiahnut zo stranky aktualnu hodnotu a porovnat ju
+            actualNumberOfRyans = driver.findElement(By.id("ryanCounter")).getText();
+            //addRyan a ActualNumber nemoze byt naopak, lebo sa priradi hodnota (zisti 50) ale este stihne kliknut
+            clicks++;
+        }
     }
 }
