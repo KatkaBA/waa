@@ -89,6 +89,10 @@ public class GosslingatorTest {
             if (i + 1 >= 2) {
                 Assert.assertEquals("ryans", actualDescription);
             }
+            //odtestovat pocat zobrazenych ryanov
+            int numberOfRyanImages = driver.findElements(By.cssSelector("img")).size();
+            Assert.assertEquals(i + 1, numberOfRyanImages);
+
 
             System.out.println("index i = + 1");
             System.out.println("pocet ryanov = " + actualNumberOfRyans);
@@ -123,5 +127,9 @@ public class GosslingatorTest {
             //addRyan a ActualNumber nemoze byt naopak, lebo sa priradi hodnota (zisti 50) ale este stihne kliknut
             clicks++;
         }
+    }
+    @Test
+    public void itShouldDisplayNoRyanOnPageOpen (){
+        Assert.assertEquals(0, driver.findElements(By.cssSelector("img")).size());
     }
 }
