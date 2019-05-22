@@ -1,5 +1,6 @@
 package tests;
 
+import base.TestBase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,25 +9,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class XpathTrainingTest {
-    WebDriver driver;
-    //typ názov;
+public class XpathTrainingTest extends TestBase {
 
     @Before //anotacia, ze tuto cast chcem otvorit vzdy pred testom
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver74");
-        driver = new ChromeDriver();
-        driver.get("http://localhost:8888/xpathtrainingcenter.php");
+    public void openPage() {
 
-
-    }
-
-    @After
-    public void tearDown() {
-        //zatvorit prehliadac
-        driver.close();
-        //ukoncit session
-        driver.quit();
+        driver.get(BASE_URL + "/xpathtrainingcenter.php");
     }
 
 

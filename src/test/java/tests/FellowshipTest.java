@@ -1,5 +1,6 @@
 package tests;
 
+import base.TestBase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,25 +13,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FellowshipTest {
-    WebDriver driver;
+public class FellowshipTest extends TestBase {
+
 
     @Before //anotacia, ze tuto cast chcem otvorit vzdy pred testom
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver74");
-        //0. spustit prehliadac
-        driver = new ChromeDriver();
-        //1. otvorit stranku
-        driver.get("http://localhost:8888/fellowship.php");
+    public void openPage() {
+
+        driver.get(BASE_URL + "/fellowship.php");
     }
 
-    @After
-    public void tearDown() {
-        //zatvorit prehliadac
-        driver.close();
-        //ukoncit session
-        driver.quit();
-    }
+
     @Test
     public void itShouldContainNameForEachFellow(){
         List<WebElement> fellowElements = driver.findElements(By.cssSelector("ul.list-of-fellows li"));
@@ -60,5 +52,64 @@ public class FellowshipTest {
         Assert.assertTrue(fellowNames.contains("Frodo"));
 
     }
+
+    @Test
+    public void itShouldCheckCompleteFellowship(){
+        String pointsLeft = driver.findElement(By.cssSelector("div.points-left h2")).getText();
+        Assert.assertEquals("25", pointsLeft);
+        System.out.println(pointsLeft);
+
+        driver.findElement(By.xpath("//h1[contains(text(),'Gandalf')]")).click();
+        driver.findElement(By.xpath("//h1[contains(text(),'Aragorn')]")).click();
+        driver.findElement(By.xpath("//h1[contains(text(),'Legolas')]")).click();
+        driver.findElement(By.xpath("//h1[contains(text(),'Frodo')]")).click();
+        String fellowship = driver.findElement(By.cssSelector("div.points-left h3")).getText();
+        Assert.assertEquals("Complete", fellowship);
+        System.out.println(fellowship);
+
+    }
+
+    @Test
+    public void itShouldCheckPointsOfEachFellow() {
+        List<WebElement> fellowElements = driver.findElements(By.cssSelector("ul.list-of-fellows li"));
+        List<String> fellowPoints = new ArrayList<String>();
+
+        for (WebElement fellowElement : fellowElements) {
+            fellowPoints.add(fellowElement.findElement(By.cssSelector("div.fellow-points h2")).getText());
+        }
+        System.out.println(fellowPoints);
+        //Assert.assertEquals(9, driver.findElements(By.cssSelector("div.fellow-points h2")).size());
+        Assert.assertEquals(9, driver.findElements(By.xpath("//div[contains(@class, 'fellow-points')]/h2[text()]")).size());
+    }
+
+    @Test
+    public void itShouldDisplayCompleteMessage(){
+        List<String> fellowsToSelect = new ArrayList<String>();
+        fellowsToSelect.add("Gandalf");
+        fellowsToSelect.add("Aragorn");
+        fellowsToSelect.add("Legolas");
+        fellowsToSelect.add("Frodo");
+
+        for (String fellowToSelect : fellowsToSelect) {
+            driver.findElement(By.xpath("//h1[contains(text(),'" + fellowToSelect + "')]")).click();
+        }
+        Assert.assertEquals("Complete", driver.findElement(By.cssSelector("div.points-left h3")).getText());
+
+
+    }
+    //@Test
+    //public void itShouldDisplayPointsOfEachFellow() {
+        //List<WebElement> displayedFellows = driver.findElements(By.cssSelector("ul.list-of-fellows li"));
+
+
+        //for (WebElement displayedFellow : displayedFellows) {
+            //String actualPoints = displayedFellow.findElement(By.cssSelector("div.fellow-points h2")).getText();
+            //Assert.assertFalse(actualPoints).isEmpty;
+       // }
+
+        //Assert.assertEquals(9, driver.findElements(By.cssSelector("div.fellow-points h2")).size());
+        //Assert.assertEquals(9, driver.findElements(By.xpath("//div[contains(@class, 'fellow-points')]/h2[text()]")).size());
+    //}
+
 
 }

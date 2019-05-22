@@ -1,5 +1,8 @@
 package tests;
 
+import base.TestBase;
+import io.codearte.jfairy.Fairy;
+import io.codearte.jfairy.producer.person.Person;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,40 +11,25 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class RegistrationTest {
+public class RegistrationTest extends TestBase {
 
-        WebDriver driver;
-        //typ názov;
 
         @Before //anotacia, ze tuto cast chcem otvorit vzdy pred testom
-        public void setUp() {
-            System.setProperty("webdriver.chrome.driver", "chromedriver74");
-            driver = new ChromeDriver();
-            driver.get("http://localhost:8888/registracia.php");
-        }
+        public void openPage() {
 
-        @After
-        public void tearDown() {
-            //zatvorit prehliadac
-            driver.close();
-            //ukoncit session
-            driver.quit();
+            driver.get(BASE_URL + "/registracia.php");
         }
-
 
         @Test
         public void itShouldRegisterValidUsed(){
+            Person person = Fairy.create().person();
 
-            String email = "jankomrkvicka2@gmail.com";
-            String meno = "janko";
-            String priezvisko = "mrkvicka";
-            String heslo = "heslo2";
             //zadam zakaldne udaje
-            driver.findElement(By.name("email")).sendKeys(email);
-            driver.findElement(By.name("name")).sendKeys(meno);
-            driver.findElement(By.name("surname")).sendKeys(priezvisko);
-            driver.findElement(By.name("password")).sendKeys(heslo);
-            driver.findElement(By.name("password-repeat")).sendKeys(heslo);
+            driver.findElement(By.name("email")).sendKeys(person.getEmail());
+            driver.findElement(By.name("name")).sendKeys(person.getFirstName());
+            driver.findElement(By.name("surname")).sendKeys(person.getLastName());
+            driver.findElement(By.name("password")).sendKeys(person.getPassword());
+            driver.findElement(By.name("password-repeat")).sendKeys(person.getPassword());
             //kliknem na checkbox
             driver.findElement(By.id("checkbox")).click();
             //kliknem na registruj
@@ -54,7 +42,7 @@ public class RegistrationTest {
 
 
         @Test
-    public void itShouldDisplayErrorMessageWhenInputsAreEmpty () {
+        public void itShouldDisplayErrorMessageWhenInputsAreEmpty () {
             //kliknut na checkbox som robot
             driver.findElement(By.id("checkbox")).click();
             //kliknut na tlacidlo registrovat sa
