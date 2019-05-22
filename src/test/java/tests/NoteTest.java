@@ -9,16 +9,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.NotePage;
 
 import java.sql.SQLOutput;
 import java.sql.Timestamp;
 
-public class OdkazovacTest extends TestBase {
+public class NoteTest extends TestBase {
+    private NotePage notePage;
 
     @Before //anotacia, ze tuto cast chcem otvorit vzdy pred testom
     public void openPage() {
         //1. otvorit stranku
         driver.get(BASE_URL + "/odkazovac.php");
+        notePage = new NotePage(driver);
 
     }
 
@@ -33,11 +36,11 @@ public class OdkazovacTest extends TestBase {
         //driver.findElement(By.name("title")).sendKeys(title); //vlozit slovo
         //driver.findElement(By.name("author")).sendKeys(author);
         //driver.findElement(By.name("message")).sendKeys(message);
-        enterNoteData(title,author,message);
+        notePage.enterNoteData(title,author,message);
         //driver.findElement(By.cssSelector("button.btn-block")).click();
-        submitNewNote();
-        checkNoteInList(title);
-        getLastNoteFromList().click();
+        notePage.submitNewNote();
+        notePage.checkNoteInList(title);
+        notePage.getLastNoteFromList().click();
 
         //WebElement listOfItem = getLastNoteFromList();
         //overim, ze sa pridal novy zaznam do zoznamu
@@ -53,7 +56,7 @@ public class OdkazovacTest extends TestBase {
         //listOfItem.click();
         //overim detail zaznamu
         Thread.sleep(1000);
-        checkNoteDetail(title, author, message);
+        notePage.checkNoteDetail(title, author, message);
         //WebElement detail = driver.findElement(By.cssSelector("div.content"));
         //Assert.assertEquals(title, detail.findElement(By.cssSelector("h4.title")).getText());
         //Assert.assertEquals(author, detail.findElement(By.cssSelector("h4.recipent")).getText());
@@ -63,15 +66,15 @@ public class OdkazovacTest extends TestBase {
     @Test
     public void itShouldAddNoteWithTimestamp(){
         //vytvorenie casovej peciatky,  vsetko za "new" je konstruktor
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String title = "ahoj" + timestamp.getTime();
+        //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String title = generateUniqueTitle();
         String author = "Jano";
         String message = "mas sa";
 
         //driver.findElement(By.name("title")).sendKeys(title); //vlozit slovo
         //driver.findElement(By.name("author")).sendKeys(author);
         //driver.findElement(By.name("message")).sendKeys(message);
-        enterNoteData(title,author,message);
+        notePage.enterNoteData(title,author,message);
 
         driver.findElement(By.cssSelector("button.btn-block")).click();
         Assert.assertTrue(driver.findElement(By.id("1")).isDisplayed());
@@ -113,32 +116,11 @@ public class OdkazovacTest extends TestBase {
         Assert.assertEquals("#moda", detail.findElement(By.cssSelector("li:last-child")).getText());
 
     }
-    private void enterNoteData(String title, String person, String message){
-        driver.findElement(By.name("title")).sendKeys(title);
-        driver.findElement(By.name("author")).sendKeys(person);
-        driver.findElement(By.name("message")).sendKeys(message);
-    }
 
-    private void submitNewNote(){
-        driver.findElement(By.cssSelector("button.btn-block")).click();
-    }
 
-    private WebElement getLastNoteFromList(){
-        return driver.findElement(By.cssSelector("ul.list-of-sins > li:last-child"));
-    }
-
-    private void checkNoteDetail(String title, String author, String message){
-        WebElement detail = driver.findElement(By.cssSelector("div.content"));
-        Assert.assertEquals(title, detail.findElement(By.cssSelector("h4.title")).getText());
-        Assert.assertEquals(author, detail.findElement(By.cssSelector("h4.recipent")).getText());
-        Assert.assertEquals(message, detail.findElement(By.cssSelector("p")).getText());
-    }
-
-    private void checkNoteInList(String title){
-        WebElement listOfItem = getLastNoteFromList();
-        Assert.assertTrue(listOfItem.getText().contains(title));
-        Assert.assertTrue(listOfItem.findElement(By.cssSelector("div.description a")).isDisplayed());
-        Assert.assertEquals("detail", listOfItem.findElement(By.cssSelector("div.description a")).getText());
+    private String generateUniqueTitle(){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return "Ahoj" + timestamp.getTime();
     }
 
 
