@@ -16,7 +16,7 @@ public class GosslingatorTest extends TestBase {
     private String actualNumberOfRyans;
     private String actualRyanDescription;
 
-    GosslingatorPage gossPage;
+    private GosslingatorPage gossPage;
 
     @Before //anotacia, ze tuto cast chcem otvorit vzdy pred testom
     public void openPage() {
