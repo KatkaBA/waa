@@ -36,7 +36,8 @@ public class RandomTableTest extends TestBase {
     }
     @Test
     public void itShouldContainDataForEachRow(){
-        List<WebElement> tableRows = driver.findElements(By.cssSelector("table tbody tr"));
+        //List<WebElement> tableRows = driver.findElements(By.cssSelector("table tbody tr"));
+        List<WebElement> tableRows = getRows();
         for (WebElement tableRow : tableRows) {
             //overenie, ze riadok nie je prazdny (v cykle sa vykona pre kazdy riadok tabulky)
             Assert.assertFalse(tableRow.getText().isEmpty());
@@ -45,7 +46,8 @@ public class RandomTableTest extends TestBase {
 
     @Test
     public void itShouldContainNameForEachRow(){
-        List<WebElement> tableRows = driver.findElements(By.cssSelector("table tbody tr"));
+        //List<WebElement> tableRows = driver.findElements(By.cssSelector("table tbody tr"));
+        List<WebElement> tableRows = getRows();
         for (WebElement tableRow : tableRows) {
             //tableRow.findElement(By.xpath("./td[2]"));
             tableRow.findElement(By.cssSelector("td:nth-child(2)"));
@@ -54,6 +56,10 @@ public class RandomTableTest extends TestBase {
             System.out.println(rowName.getText());
 
         }
+    }
+
+    private List<WebElement> getRows (){
+       return driver.findElements(By.cssSelector("table tbody tr"));
     }
 
 
