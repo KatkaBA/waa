@@ -4,18 +4,34 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class NotePage {
+
+    @FindBy(name = "title")
+    private WebElement writeTitle;
+
+    @FindBy(name = "author")
+    private WebElement writeAuthor;
+
+    @FindBy(name = "message")
+    private WebElement writeMessage;
+
     private WebDriver pageDriver;
 
     public NotePage(WebDriver driver) {
         this.pageDriver = driver;
+        PageFactory.initElements(pageDriver, this);
     }
 
     public void enterNoteData(String title, String person, String message){
-        pageDriver.findElement(By.name("title")).sendKeys(title);
-        pageDriver.findElement(By.name("author")).sendKeys(person);
-        pageDriver.findElement(By.name("message")).sendKeys(message);
+        //pageDriver.findElement(By.name("title")).sendKeys(title);
+        //pageDriver.findElement(By.name("author")).sendKeys(person);
+        //pageDriver.findElement(By.name("message")).sendKeys(message);
+        writeTitle.sendKeys(title);
+        writeAuthor.sendKeys(person);
+        writeMessage.sendKeys(message);
     }
 
     public void submitNewNote(){
