@@ -53,12 +53,8 @@ public class CalculatorTest extends TestBase {
         calculatorPage.enterSecondInput();
         calculatorPage.sumNumbers();
         Assert.assertEquals("4 + 3 = 7", calculatorPage.getLastCalculation().getText());
-        Assert.assertEquals(1, driver.findElement(By.cssSelector("ul.latest-results li")).getText());
+        Assert.assertEquals(1, calculatorPage.getLastCalculations().size());
     }
-
-    //private List<WebElement> getLastCalculations(){
-        //return driver.findElement(By.cssSelector("ul.latest-results li"));
-    //}
 
 
 }
