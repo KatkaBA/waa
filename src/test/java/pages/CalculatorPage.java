@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class CalculatorPage {
     WebDriver pageDriver;
 
@@ -61,9 +63,9 @@ public class CalculatorPage {
         return pageDriver.findElement(By.cssSelector("ul.latest-results li"));
     }
 
-    //private List<WebElement> getLastCalculations(){
-    //return driver.findElement(By.cssSelector("ul.latest-results li"));
-    //}
+    public List<WebElement> getLastCalculations() {
+        return pageDriver.findElements(By.cssSelector("ul.latest-results li"));
+    }
 
     public WebElement getFirstInput(){
         return firstInput;
