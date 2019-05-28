@@ -1,6 +1,9 @@
 package tests;
 
 import base.TestBase;
+import io.codearte.jfairy.Fairy;
+import io.codearte.jfairy.producer.person.Person;
+import models.Note;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,18 +31,23 @@ public class NoteTest extends TestBase {
     @Test
     public void itShouldAddNote() throws InterruptedException {
 
-        String title = "Ahoj";
+        Fairy fairy = Fairy.create();
+        Person fakePerson = fairy.person();
+
+        String title = generateUniqueTitle();
         String author = "Jano";
         String message = "Mas sa dobre";
 
-        Integer numberOfNotes = Integer.valueOf(driver.findElement(By.cssSelector("h3.sin-header span")).getText());
+        Note noteToAdd = new Note(title, author, message);
+
+        //Integer numberOfNotes = Integer.valueOf(driver.findElement(By.cssSelector("h3.sin-header span")).getText());
         //driver.findElement(By.name("title")).sendKeys(title); //vlozit slovo
         //driver.findElement(By.name("author")).sendKeys(author);
         //driver.findElement(By.name("message")).sendKeys(message);
-        notePage.enterNoteData(title,author,message);
+        notePage.enterNoteData(noteToAdd);
         //driver.findElement(By.cssSelector("button.btn-block")).click();
         notePage.submitNewNote();
-        notePage.checkNoteInList(title);
+        notePage.checkNoteInList(noteToAdd.getTitle());
         notePage.getLastNoteFromList().click();
 
         //WebElement listOfItem = getLastNoteFromList();
@@ -56,7 +64,7 @@ public class NoteTest extends TestBase {
         //listOfItem.click();
         //overim detail zaznamu
         Thread.sleep(1000);
-        notePage.checkNoteDetail(title, author, message);
+        notePage.checkNoteDetail(noteToAdd);
         //WebElement detail = driver.findElement(By.cssSelector("div.content"));
         //Assert.assertEquals(title, detail.findElement(By.cssSelector("h4.title")).getText());
         //Assert.assertEquals(author, detail.findElement(By.cssSelector("h4.recipent")).getText());
@@ -67,14 +75,16 @@ public class NoteTest extends TestBase {
     public void itShouldAddNoteWithTimestamp(){
         //vytvorenie casovej peciatky,  vsetko za "new" je konstruktor
         //Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
         String title = generateUniqueTitle();
         String author = "Jano";
         String message = "mas sa";
+        Note noteToAdd = new Note(title, author, message);
 
         //driver.findElement(By.name("title")).sendKeys(title); //vlozit slovo
         //driver.findElement(By.name("author")).sendKeys(author);
         //driver.findElement(By.name("message")).sendKeys(message);
-        notePage.enterNoteData(title,author,message);
+        notePage.enterNoteData(noteToAdd);
 
         driver.findElement(By.cssSelector("button.btn-block")).click();
         Assert.assertTrue(driver.findElement(By.id("1")).isDisplayed());
