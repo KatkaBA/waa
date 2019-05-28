@@ -21,7 +21,7 @@ public class ConchitaTest extends TestBase {
     @Test
     public void noOptionShouldBeSelected() {
         //Assert.assertFalse(driver.findElement(By.xpath("//input[@value='wurst']")).isSelected());
-        Assert.assertFalse(conchitaPage.checkThetMan());
+        Assert.assertFalse(conchitaPage.checkTheMan());
         //Assert.assertFalse(driver.findElement(By.xpath("//label[text()='Zena']/input")).isSelected());
         Assert.assertFalse(conchitaPage.checkTheWoman());
     }

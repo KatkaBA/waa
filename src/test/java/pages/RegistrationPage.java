@@ -27,6 +27,13 @@ public class RegistrationPage {
         pagedriver.findElement(By.name("password-repeat")).sendKeys(person.getPassword());
     }
 
+    //public void fillOutValidUser2(String email, String meno, String priezvisko, String heslo){
+        //pagedriver.findElement(By.name("email")).sendKeys(person.getEmail());
+        //pagedriver.findElement(By.name("name")).sendKeys(person.getFirstName());
+        //pagedriver.findElement(By.name("surname")).sendKeys(person.getLastName());
+        //pagedriver.findElement(By.name("password")).sendKeys(person.getPassword());
+        //pagedriver.findElement(By.name("password-repeat")).sendKeys(person.getPassword());
+
     public void checkIfSuccessMessageIsDisplayed(){
         Assert.assertTrue(pagedriver.findElement(By.cssSelector("div.alert-success")).isDisplayed());
     }

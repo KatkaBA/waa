@@ -11,7 +11,7 @@ public class ConchitaPage {
         this.pageDriver = driver;
     }
 
-    public boolean checkThetMan(){
+    public boolean checkTheMan(){
         return pageDriver.findElement(By.xpath("//input[@value='wurst']")).isSelected();
     }
 
