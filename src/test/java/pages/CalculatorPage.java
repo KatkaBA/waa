@@ -42,4 +42,5 @@ public class CalculatorPage {
     //private List<WebElement> getLastCalculations(){
     //return driver.findElement(By.cssSelector("ul.latest-results li"));
     //}
+
 }
