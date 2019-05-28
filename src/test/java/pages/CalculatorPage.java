@@ -3,36 +3,58 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class CalculatorPage {
     WebDriver pageDriver;
 
+    @FindBy(id = "firstInput")
+    private WebElement firstInput;
+
+    @FindBy(id = "secondInput")
+    private WebElement secondInput;
+
+    @FindBy(id = "count")
+    private WebElement countButton;
+
+    @FindBy(id = "deduct")
+    private WebElement deductButton;
+
+    @FindBy(id = "result")
+    private WebElement result;
+
+    @FindBy(id = "reset")
+    private WebElement resetButton;
+
+
     public CalculatorPage(WebDriver driver){
         this.pageDriver = driver;
+        PageFactory.initElements(pageDriver, this);
     }
 
     public void enterFirstInput(){
-        pageDriver.findElement(By.id("firstInput")).sendKeys("4");
-    }
+        firstInput.sendKeys("4");
+}
 
     public void enterSecondInput(){
-        pageDriver.findElement(By.id("secondInput")).sendKeys("3");
+        secondInput.sendKeys("3");
     }
 
     public void sumNumbers(){
-        pageDriver.findElement(By.id("count")).click();
+        countButton.click();
     }
 
     public void deductNumbers(){
-        pageDriver.findElement(By.id("deduct")).click();
+        deductButton.click();
     }
 
     public String getResults(){
-        return pageDriver.findElement(By.id("result")).getText();
+        return result.getText();
     }
 
     public void resetCalculator(){
-        pageDriver.findElement(By.id("reset")).click();
+        resetButton.click();
     }
 
     public WebElement getLastCalculation(){
@@ -42,5 +64,13 @@ public class CalculatorPage {
     //private List<WebElement> getLastCalculations(){
     //return driver.findElement(By.cssSelector("ul.latest-results li"));
     //}
+
+    public WebElement getFirstInput(){
+        return firstInput;
+    }
+
+    public WebElement getSecondInput(){
+        return secondInput;
+    }
 
 }

@@ -43,8 +43,8 @@ public class CalculatorTest extends TestBase {
         calculatorPage.enterSecondInput();
         calculatorPage.sumNumbers();
         calculatorPage.resetCalculator();
-        Assert.assertTrue(driver.findElement(By.id("firstInput")).getAttribute("value").isEmpty());
-        Assert.assertTrue(driver.findElement(By.id("secondInput")).getAttribute("value").isEmpty());
+        Assert.assertTrue(calculatorPage.getFirstInput().getAttribute("value").isEmpty());
+        Assert.assertTrue(calculatorPage.getSecondInput().getAttribute("value").isEmpty());
     }
 
     @Test
