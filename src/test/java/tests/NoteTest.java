@@ -12,6 +12,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.NotePage;
 
 import java.sql.SQLOutput;
@@ -63,7 +65,9 @@ public class NoteTest extends TestBase {
 
         //listOfItem.click();
         //overim detail zaznamu
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
+        new WebDriverWait(driver, 10).
+                until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.content")));
         notePage.checkNoteDetail(noteToAdd);
         //WebElement detail = driver.findElement(By.cssSelector("div.content"));
         //Assert.assertEquals(title, detail.findElement(By.cssSelector("h4.title")).getText());
