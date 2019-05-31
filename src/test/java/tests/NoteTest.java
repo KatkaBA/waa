@@ -50,7 +50,7 @@ public class NoteTest extends TestBase {
         //driver.findElement(By.cssSelector("button.btn-block")).click();
         notePage.submitNewNote();
         notePage.checkNoteInList(noteToAdd.getTitle());
-        notePage.getLastNoteFromList().click();
+        //notePage.getLastNoteFromList().click();
 
         //WebElement listOfItem = getLastNoteFromList();
         //overim, ze sa pridal novy zaznam do zoznamu
@@ -66,8 +66,9 @@ public class NoteTest extends TestBase {
         //listOfItem.click();
         //overim detail zaznamu
         //Thread.sleep(1000);
-        new WebDriverWait(driver, 10).
-                until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.content")));
+        //new WebDriverWait(driver, 10).
+                //until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.content")));
+        notePage.openLastNote();
         notePage.checkNoteDetail(noteToAdd);
         //WebElement detail = driver.findElement(By.cssSelector("div.content"));
         //Assert.assertEquals(title, detail.findElement(By.cssSelector("h4.title")).getText());
