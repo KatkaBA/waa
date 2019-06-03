@@ -1,6 +1,7 @@
 package pages;
 
 import io.codearte.jfairy.Fairy;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -64,4 +65,27 @@ public class SavingsCalculatorPage {
         addEmail(fairy.person().getEmail());
     }
 
+    public WebElement getTotalIncome() {
+        return pageDriver.findElement(By.cssSelector("div.result div:first-child p"));
+    }
+
+    public WebElement getInterestIncome() {
+        return pageDriver.findElement(By.cssSelector("div.result div:nth-child(1) p"));
+    }
+
+    public WebElement getRisk() {
+        return pageDriver.findElement(By.cssSelector("div.result div:last-child p"));
+    }
+
+    public WebElement getSavingDetail() {
+        return pageDriver.findElement(By.cssSelector("div.saving-detail"));
+    }
+
+    public WebElement getSavingDetailAmounts() {
+        return pageDriver.findElement(By.cssSelector("div.saving-detail .amounts"));
+    }
+
+    public String getFundDescription() {
+        return pageDriver.findElement(By.cssSelector("p.fund-description")).getText();
+    }
 }
