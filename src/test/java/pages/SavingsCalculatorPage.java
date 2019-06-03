@@ -1,6 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
+import io.codearte.jfairy.Fairy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.Select;
 
 public class SavingsCalculatorPage {
     WebDriver pageDriver;
+
+    private Fairy fairy;
 
     @FindBy(id = "fundSelect")
     private WebElement fundSelect;
@@ -52,6 +54,14 @@ public class SavingsCalculatorPage {
 
     public void clickApplyButton() {
         applyButton.click();
+    }
+
+    public void fillInputs(){
+        selectFund("Handelsbanken Aktiv 100");
+        addInvestment("50");
+        addPeriod("3");
+        fairy = Fairy.create();
+        addEmail(fairy.person().getEmail());
     }
 
 }
